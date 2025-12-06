@@ -18,3 +18,5 @@ resource "aws_security_group" "security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+#We must specify a value of "-1" which denotes "all" and as such, requries
+#us to also define a port range of zero to zero, no other ranges are accepted
