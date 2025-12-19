@@ -1,15 +1,9 @@
-#We are using an ECS Cluster or "Elastic Container Service" Cluster + ECS Service resource
-#This is the equivalent to Azure's Container App Environment resource
-resource "aws_ecs_cluster" "ecs_cluster" {
-    name = "${var.environment}-ecs-cluster"
-}
-
 #Our ECS Service is just there to load balance the containers as needed and keeps them healthy
 #The ECS Service simply leverages Fargate, which does the actual scaling under the hood
 #FE ECS Service
 resource "aws_ecs_service" "fe_ecs_service" {
   name            = "${var.environment}-fe-ecs-service"
-  cluster         = aws_ecs_cluster.ecs_cluster.id
+  cluster         = aws_ecs_cluster.fe_ecs_cluster.id
   task_definition = aws_ecs_task_definition.fe_task.arn
   desired_count   = 1
   launch_type     = "FARGATE"
@@ -24,7 +18,7 @@ resource "aws_ecs_service" "fe_ecs_service" {
 #BE ECS Service
 resource "aws_ecs_service" "be_ecs_service" {
   name            = "${var.environment}-be-ecs-service"
-  cluster         = aws_ecs_cluster.ecs_cluster.id
+  cluster         = aws_ecs_cluster.be_ecs_cluster.id
   task_definition = aws_ecs_task_definition.fe_task.arn
   desired_count   = 1
   launch_type     = "FARGATE"

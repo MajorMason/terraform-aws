@@ -1,7 +1,11 @@
 #Similar to our Azure Terraform project, this project will use an ADO
 #build pipeline in order to deploy our IaC in a CI/CD fashion
 terraform {
-  backend "aws" {
+  backend "s3" {
+    bucket = "terraform"
+    key    = "tfstate/dev.tfstate"
+    region = "us-east-1"
+
   }
 }
 
