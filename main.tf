@@ -6,3 +6,13 @@ module "networking" {
   enable_dns_hostnames = var.enable_dns_hostnames
   availability_zone    = var.availability_zone
 }
+
+module "database_instance" {
+  source              = "./modules/database"
+  allocated_storage   = var.allocated_storage
+  engine_version      = var.engine_version
+  instance_class      = var.instance_class
+  username            = var.username
+  password            = var.password
+  skip_final_snapshot = var.skip_final_snapshot
+}
