@@ -3,10 +3,10 @@ variable "environment" {
     default = "dev"
 }
 
+#Container
 variable "cpu" {
     type = number
 }
-
 variable "memory" {
     type = number
 }

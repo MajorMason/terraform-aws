@@ -7,6 +7,12 @@ module "networking" {
   availability_zone    = var.availability_zone
 }
 
+module "containers" {
+  source = "./modules/containers"
+  memory = var.memory
+  cpu    = var.cpu
+}
+
 module "database_instance" {
   source              = "./modules/database"
   allocated_storage   = var.allocated_storage
@@ -15,4 +21,12 @@ module "database_instance" {
   username            = var.username
   password            = var.password
   skip_final_snapshot = var.skip_final_snapshot
+}
+
+module "security" {
+  source = "./modules/security"
+}
+
+module "storage" {
+  source = "./modules/storage"
 }

@@ -19,6 +19,14 @@ variable "enable_dns_hostnames" {
   type = bool
 }
 
+#Containers
+variable "cpu" {
+  type = number
+}
+variable "memory" {
+  type = number
+}
+
 #Database Instances
 variable "allocated_storage" {
   type = number
