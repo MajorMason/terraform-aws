@@ -30,8 +30,8 @@ resource "aws_ecs_service" "sheriff_ecs" {
 }
 
 #BE ECS Service
-resource "aws_ecs_service" "be_ecs_service" {
-  name            = "${var.environment}-be-ecs-service"
+resource "aws_ecs_service" "countysuite_api_ecs" {
+  name            = "${var.environment}-countysuite-api-ecs"
   cluster         = aws_ecs_cluster.be_ecs_cluster.id
   task_definition = aws_ecs_task_definition.countysuite_api.arn
   desired_count   = 1

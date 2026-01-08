@@ -3,6 +3,7 @@ variable "environment" {
     default = "dev"
 }
 
+#Network
 variable "availability_zone" {
     type = string
 }
