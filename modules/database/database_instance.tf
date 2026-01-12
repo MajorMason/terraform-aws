@@ -1,3 +1,4 @@
+#We are using a Relational Database Service (RDS) for our data storage
 resource "aws_db_instance" "database" {
     db_name = "${var.environment}-db"
     allocated_storage = var.allocated_storage
