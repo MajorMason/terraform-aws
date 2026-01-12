@@ -46,3 +46,9 @@ variable "password" {
 variable "skip_final_snapshot" {
   type = bool
 }
+variable "retention_period" {
+  type = number
+}
+variable "blue_green" {
+  type = bool
+}

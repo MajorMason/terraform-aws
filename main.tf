@@ -21,6 +21,8 @@ module "database_instance" {
   username            = var.username
   password            = var.password
   skip_final_snapshot = var.skip_final_snapshot
+  retention_period    = var.retention_period
+  blue_green          = var.blue_green
 }
 
 module "security" {
