@@ -13,6 +13,10 @@ resource "aws_ecs_service" "prothonotary_ecs" {
     security_groups  = [data.aws_security_group.security_group.id]
     assign_public_ip = true
   }
+
+  tags = {
+    environment = "${var.environment}"
+  }
 }
 
 resource "aws_ecs_service" "sheriff_ecs" {
@@ -26,6 +30,10 @@ resource "aws_ecs_service" "sheriff_ecs" {
     subnets          = [data.aws_subnet.public_subnet.id]
     security_groups  = [data.aws_security_group.security_group.id]
     assign_public_ip = true
+  }
+
+  tags = {
+    environment = "${var.environment}"
   }
 }
 
@@ -41,5 +49,9 @@ resource "aws_ecs_service" "countysuite_api_ecs" {
     subnets          = [data.aws_subnet.private_subnet.id]
     security_groups  = [data.aws_security_group.security_group.id]
     assign_public_ip = false
+  }
+
+  tags = {
+    environment = "${var.environment}"
   }
 }

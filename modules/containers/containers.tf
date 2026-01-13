@@ -21,6 +21,10 @@ resource "aws_ecs_task_definition" "prothonotary_fe" {
             ]
         }
     ])
+
+    tags = {
+      environment = "${var.environment}"
+    }
 }
 
 resource "aws_ecs_task_definition" "sheriff_fe" {
@@ -43,6 +47,10 @@ resource "aws_ecs_task_definition" "sheriff_fe" {
             ]
         }
     ])
+
+    tags = {
+      environment = "${var.environment}"
+    }
 }
 
 resource "aws_ecs_task_definition" "countysuite_api" {
@@ -65,4 +73,8 @@ resource "aws_ecs_task_definition" "countysuite_api" {
             ]
         }
     ])
+
+    tags = {
+      environment = "${var.environment}"
+    }
 }
