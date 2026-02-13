@@ -10,8 +10,8 @@ resource "aws_ecs_task_definition" "prothonotary_fe" {
 
     container_definitions = jsonencode([
         {
-            name    = "nginx"
-            image   = "nginx:latest"
+            name    = "prothonotary_fe"
+            image   = "majormason/mysite:prothonotary_fe"
             essential = true
             portMappings = [
                 {
@@ -36,12 +36,12 @@ resource "aws_ecs_task_definition" "sheriff_fe" {
 
     container_definitions = jsonencode([
         {
-            name    = "nginx"
-            image   = "nginx:latest"
+            name    = "sheriff_fe"
+            image   = "majormason/mysite:sheriff_fe"
             essential = true
             portMappings = [
                 {
-                    containerPort = 80
+                    containerPort = 8080
                     hostPort = 80
                 }
             ]
@@ -62,8 +62,8 @@ resource "aws_ecs_task_definition" "countysuite_api" {
 
     container_definitions = jsonencode([
         {
-            name    = "fastapi"
-            image   = "fastapi:latest"
+            name    = "countysuite_api"
+            image   = "majormason/mysite:countysuite_api"
             essential = true
             portMappings = [
                 {
