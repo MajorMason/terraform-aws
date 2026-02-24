@@ -1,9 +1,9 @@
 #Similar to NSGs over on Azure, AWS' security groups will permit or deny traffic
-#based on several characteristics as seen below with our ingress and egress rules
+#at the instance level (separate from network level which ACLs provide)
 #NOTE: AWS can rely on both Security Groups and ACLs for resource/network security
-resource "aws_security_group" "security_group" {
+resource "aws_security_group" "frontend_security_group" {
   vpc_id = data.aws_vpc.main_vpc.id
-  name = "ECS-SG"
+  name = "frontend_sg"
 
   tags = {
     environment = "${var.environment}"
@@ -16,6 +16,13 @@ resource "aws_security_group" "security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port = 0
     to_port = 0
@@ -25,3 +32,38 @@ resource "aws_security_group" "security_group" {
 }
 #We must specify a value of "-1" which denotes "all" and as such, requries
 #us to also define a port range of zero to zero, no other ranges are accepted
+
+resource "aws_security_group" "backend_security_group" {
+  vpc_id = data.aws_vpc.main_vpc.id
+  name = "backend_sg"
+
+  tags = {
+    environment = "${var.environment}"
+  }
+
+  ingress {
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    security_groups = [aws_security_group.frontend_security_group.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "db_security_group" {
+  vpc_id = data.aws_vpc.main_vpc.id
+  name   = "db-sg"
+
+  ingress {
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.backend_security_group.id]
+  }
+}
