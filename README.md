@@ -1,4 +1,4 @@
-# Terraform AWS ECS Infrastructure
+# Terraform AWS ECS (PaaS) Infrastructure
 
 This repository contains Terraform code for deploying a containerized application stack on AWS. The architecture consists of two public-facing frontend ECS services that communicate with a single backend ECS service.
 The backend service connects to a PostgreSQL RDS instance, both of which are deployed in private subnets for security.
