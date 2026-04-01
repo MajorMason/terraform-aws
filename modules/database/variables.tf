@@ -28,3 +28,11 @@ variable "retention_period" {
 variable "blue_green" {
     type = bool
 }
+
+#Security Groups
+#This is a variable that Terraform provides a value for behind the scenes during runtime
+#thanks to our outputs.tf file over in our "security" module
+variable "db_security_group_ids" {
+  description = "List of security group IDs to attach to the DB instance"
+  type        = list(string)
+}

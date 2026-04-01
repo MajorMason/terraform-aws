@@ -30,9 +30,17 @@ data "aws_subnet" "private_subnet" {
 }
 
 #Security
-data "aws_security_group" "security_group" {
+#NOTE: The "name" value is a specific AWS EC2 API value that must equal "group-name" in this case
+data "aws_security_group" "frontend_security_group" {
   filter {
     name   = "group-name"
-    values = ["ECS-SG"]
+    values = ["frontend_sg"]
+  }
+}
+
+data "aws_security_group" "backend_security_group" {
+  filter {
+    name   = "group-name"
+    values = ["backend_sg"]
   }
 }

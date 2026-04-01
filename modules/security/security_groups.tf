@@ -56,11 +56,14 @@ resource "aws_security_group" "backend_security_group" {
   }
 }
 
+#Using the security group ID reference name, we can allow only the backend security group's
+#associated ECS to access the PostgreSQL DB, restricting access appropriately
 resource "aws_security_group" "db_security_group" {
   vpc_id = data.aws_vpc.main_vpc.id
-  name   = "db-sg"
+  name   = "db_sg"
 
   ingress {
+    description     = "Allow backend ECS to access DB"
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
