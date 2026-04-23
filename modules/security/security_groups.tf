@@ -2,7 +2,7 @@
 #at the instance level (separate from network level which ACLs provide)
 #NOTE: AWS can rely on both Security Groups and ACLs for resource/network security
 resource "aws_security_group" "frontend_security_group" {
-  vpc_id = data.aws_vpc.main_vpc.id
+  vpc_id = var.aws_vpc_id
   name = "frontend_sg"
 
   tags = {
@@ -34,7 +34,7 @@ resource "aws_security_group" "frontend_security_group" {
 #us to also define a port range of zero to zero, no other ranges are accepted
 
 resource "aws_security_group" "backend_security_group" {
-  vpc_id = data.aws_vpc.main_vpc.id
+  vpc_id = var.aws_vpc_id
   name = "backend_sg"
 
   tags = {
@@ -59,7 +59,7 @@ resource "aws_security_group" "backend_security_group" {
 #Using the security group ID reference name, we can allow only the backend security group's
 #associated ECS to access the PostgreSQL DB, restricting access appropriately
 resource "aws_security_group" "db_security_group" {
-  vpc_id = data.aws_vpc.main_vpc.id
+  vpc_id = var.aws_vpc_id
   name   = "db_sg"
 
   ingress {

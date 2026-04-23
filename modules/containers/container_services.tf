@@ -9,8 +9,8 @@ resource "aws_ecs_service" "prothonotary_ecs" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [data.aws_subnet.public_subnet.id]
-    security_groups  = [data.aws_security_group.frontend_security_group.id]
+    subnets          = [var.aws_public_subnet_id]
+    security_groups  = [var.aws_frontend_sg_id]
     assign_public_ip = true
   }
 
@@ -27,8 +27,8 @@ resource "aws_ecs_service" "sheriff_ecs" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [data.aws_subnet.public_subnet.id]
-    security_groups  = [data.aws_security_group.frontend_security_group.id]
+    subnets          = [var.aws_public_subnet_id]
+    security_groups  = [var.aws_frontend_sg_id]
     assign_public_ip = true
   }
 
@@ -46,8 +46,8 @@ resource "aws_ecs_service" "countysuite_api_ecs" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [data.aws_subnet.private_subnet.id]
-    security_groups  = [data.aws_security_group.backend_security_group.id]
+    subnets          = [var.aws_private_subnet_id]
+    security_groups  = [var.aws_backend_sg_id]
     assign_public_ip = false
   }
 

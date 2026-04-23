@@ -8,9 +8,14 @@ module "networking" {
 }
 
 module "containers" {
-  source = "./modules/containers"
-  memory = var.memory
-  cpu    = var.cpu
+  source                = "./modules/containers"
+  memory                = var.memory
+  cpu                   = var.cpu
+  aws_vpc_id            = var.aws_vpc_id
+  aws_public_subnet_id  = var.aws_public_subnet_id
+  aws_frontend_sg_id    = var.aws_frontend_sg_id
+  aws_private_subnet_id = var.aws_private_subnet_id
+  aws_backend_sg_id     = var.aws_backend_sg_id
 }
 
 module "database_instance" {
@@ -27,7 +32,8 @@ module "database_instance" {
 }
 
 module "security" {
-  source = "./modules/security"
+  source     = "./modules/security"
+  aws_vpc_id = var.aws_vpc_id
 }
 
 module "storage" {
