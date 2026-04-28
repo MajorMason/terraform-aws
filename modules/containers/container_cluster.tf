@@ -4,7 +4,7 @@ resource "aws_ecs_cluster" "fe_ecs_cluster" {
     name = "${var.environment}-fe-ecs-cluster"
 
     tags = {
-      environment = "${var.environment}"
+      environment = var.environment
     }
 }
 
@@ -12,6 +12,6 @@ resource "aws_ecs_cluster" "be_ecs_cluster" {
     name = "${var.environment}-be-ecs-cluster"
 
     tags = {
-      environment = "${var.environment}"
+      environment = var.environment
     }
 }

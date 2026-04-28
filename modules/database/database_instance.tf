@@ -17,6 +17,6 @@ resource "aws_db_instance" "database" {
     }
 
     tags = {
-      environment = "${var.environment}"
+      environment = var.environment
     }
 }

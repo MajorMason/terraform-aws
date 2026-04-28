@@ -5,7 +5,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = var.availability_zone
 
   tags = {
-    environment = "${var.environment}"
+    environment = var.environment
   }
 }
 
@@ -15,6 +15,6 @@ resource "aws_subnet" "private_subnet" {
   availability_zone = var.availability_zone
 
   tags = {
-    environment = "${var.environment}"
+    environment = var.environment
   }
 }

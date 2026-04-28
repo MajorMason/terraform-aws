@@ -15,7 +15,7 @@ resource "aws_ecs_service" "prothonotary_ecs" {
   }
 
   tags = {
-    environment = "${var.environment}"
+    environment = var.environment
   }
 }
 
@@ -33,7 +33,7 @@ resource "aws_ecs_service" "sheriff_ecs" {
   }
 
   tags = {
-    environment = "${var.environment}"
+    environment = var.environment
   }
 }
 
@@ -52,6 +52,6 @@ resource "aws_ecs_service" "countysuite_api_ecs" {
   }
 
   tags = {
-    environment = "${var.environment}"
+    environment = var.environment
   }
 }

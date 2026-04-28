@@ -5,10 +5,6 @@ resource "aws_security_group" "frontend_security_group" {
   vpc_id = var.aws_vpc_id
   name = "frontend_sg"
 
-  tags = {
-    environment = "${var.environment}"
-  }
-
   ingress {
     from_port = 80
     to_port = 80
@@ -36,10 +32,6 @@ resource "aws_security_group" "frontend_security_group" {
 resource "aws_security_group" "backend_security_group" {
   vpc_id = var.aws_vpc_id
   name = "backend_sg"
-
-  tags = {
-    environment = "${var.environment}"
-  }
 
   ingress {
     from_port   = 8000

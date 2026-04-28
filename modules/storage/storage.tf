@@ -5,6 +5,6 @@ resource "aws_s3_bucket" "terraform_s3" {
     bucket = "${var.environment}-terraform-s3"
 
     tags = {
-      environment = "${var.environment}"
+      environment = var.environment
     }
 }

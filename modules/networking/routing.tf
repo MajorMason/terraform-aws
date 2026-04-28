@@ -2,7 +2,7 @@ resource "aws_internet_gateway" "gateway" {
   vpc_id = aws_vpc.main_vpc.id
 
   tags = {
-    environment = "${var.environment}"
+    environment = var.environment
   }
 }
 
@@ -16,7 +16,7 @@ resource "aws_route_table" "public_table" {
   }
 
   tags = {
-    environment = "${var.environment}"
+    environment = var.environment
   }
 }
 
