@@ -4,7 +4,7 @@
 resource "aws_ecs_service" "prothonotary_ecs" {
   name            = "${var.environment}-prothonotary-ecs"
   cluster         = aws_ecs_cluster.cluster["fe_ecs_cluster"].id
-  task_definition = aws_ecs_task_definition.prothonotary_fe.arn
+  task_definition = aws_ecs_task_definition.task["prothonotary_fe"].arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
@@ -24,7 +24,7 @@ resource "aws_ecs_service" "prothonotary_ecs" {
 resource "aws_ecs_service" "sheriff_ecs" {
   name            = "${var.environment}-sheriff-ecs"
   cluster         = aws_ecs_cluster.cluster["fe_ecs_cluster"].id
-  task_definition = aws_ecs_task_definition.sheriff_fe.arn
+  task_definition = aws_ecs_task_definition.task["sheriff_fe"].arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
@@ -43,7 +43,7 @@ resource "aws_ecs_service" "sheriff_ecs" {
 resource "aws_ecs_service" "countysuite_api_ecs" {
   name            = "${var.environment}-countysuite-api-ecs"
   cluster         = aws_ecs_cluster.cluster["be_ecs_cluster"].id
-  task_definition = aws_ecs_task_definition.countysuite_api.arn
+  task_definition = aws_ecs_task_definition.task["countysuite_api"].arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
