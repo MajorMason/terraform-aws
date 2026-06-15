@@ -1,9 +1,15 @@
 #Similar to our Azure Terraform project, this project will use an ADO
 #build pipeline in order to deploy our IaC in a CI/CD fashion
 terraform {
-  backend "s3" {}
+  backend "s3" {
+    bucket         = "terraform"
+    key            = "state/${var.environment}.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
+  }
 }
 
-#Also similar to our other ADO build pipeline setup, we dont' need to
-#specify any information in the backend config here, because its all
-#being handled via pipeline variables downstream
+#Also similar to our other ADO pipeline setup, we don't need to
+#specify all information in the backend config here, because some of it is
+#being handled via pipeline variables downstream.
