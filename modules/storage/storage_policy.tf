@@ -4,7 +4,7 @@ resource "aws_s3_bucket_policy" "terraform-s3-policy" {
     bucket = aws_s3_bucket.terraform_s3.id
     
     policy = jsonencode({
-        Version = "2020"
+        Version = "2022"
         Statement = [
           {
             Sid       = "PrivateReadGetObject"
