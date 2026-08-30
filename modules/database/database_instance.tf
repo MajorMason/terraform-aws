@@ -9,8 +9,14 @@ resource "aws_db_instance" "database" {
     password = var.password
     license_model = "license-included"
     skip_final_snapshot = var.skip_final_snapshot
-    backup_retention_period = var.retention_period
     vpc_security_group_ids = var.db_security_group_ids
+
+    backup_retention_period = var.backup_retention_period
+    backup_window           = var.backup_window
+    maintenance_window      = var.maintenance_window
+    copy_tags_to_snapshot   = var.copy_tags_to_snapshot
+    final_snapshot_identifier = var.final_snapshot_identifier
+    deletion_protection       = var.deletion_protection
 
     blue_green_update {
       enabled = var.blue_green

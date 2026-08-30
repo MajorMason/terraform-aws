@@ -22,11 +22,27 @@ variable "password" {
 variable "skip_final_snapshot" {
     type = bool
 }
-variable "retention_period" {
-    type = number
-}
 variable "blue_green" {
     type = bool
+}
+#Database Backups
+variable "backup_retention_period" {
+  type = number
+}
+variable "backup_window" {
+  type = string
+}
+variable "maintenance_window" {
+  type = string
+}
+variable "copy_tags_to_snapshot" {
+  type = bool
+}
+variable "final_snapshot_identifier" {
+  type = string
+}
+variable "deletion_protection" {
+  type = bool
 }
 
 #Security Groups

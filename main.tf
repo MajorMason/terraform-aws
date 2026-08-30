@@ -19,16 +19,22 @@ module "containers" {
 }
 
 module "database_instance" {
-  source                = "./modules/database"
-  allocated_storage     = var.allocated_storage
-  engine_version        = var.engine_version
-  instance_class        = var.instance_class
-  username              = var.username
-  password              = var.password
-  skip_final_snapshot   = var.skip_final_snapshot
-  retention_period      = var.retention_period
-  blue_green            = var.blue_green
-  db_security_group_ids = module.security.db_security_group_id
+  source              = "./modules/database"
+  allocated_storage   = var.allocated_storage
+  engine_version      = var.engine_version
+  instance_class      = var.instance_class
+  username            = var.username
+  password            = var.password
+  skip_final_snapshot = var.skip_final_snapshot
+  blue_green          = var.blue_green
+  #Database Backup
+  backup_retention_period   = var.backup_retention_period
+  backup_window             = var.backup_window
+  maintenance_window        = var.maintenance_window
+  copy_tags_to_snapshot     = var.copy_tags_to_snapshot
+  final_snapshot_identifier = var.final_snapshot_identifier
+  deletion_protection       = var.deletion_protection
+  db_security_group_ids     = module.security.db_security_group_id
 }
 
 module "security" {
