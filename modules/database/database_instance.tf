@@ -9,7 +9,8 @@ resource "aws_db_instance" "database" {
     password = var.password
     license_model = "license-included"
     skip_final_snapshot = var.skip_final_snapshot
-    vpc_security_group_ids = var.db_security_group_ids
+    db_subnet_group_name   = var.db_subnet_group_name
+    vpc_security_group_ids = var.db_security_group_id
 
     backup_retention_period = var.backup_retention_period
     backup_window           = var.backup_window
@@ -26,3 +27,5 @@ resource "aws_db_instance" "database" {
       environment = var.environment
     }
 }
+#For our data-plane DB traffic, we don't need any VPC endpoint at all.
+#A DB Subnet Group placing the instance in private subnets is sufficient — and all traffic stays on the AWS internal network.

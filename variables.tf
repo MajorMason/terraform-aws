@@ -4,9 +4,16 @@ variable "environment" {
   type    = string
   default = "dev"
 }
+variable "availability_zone" {
+  type = string
+}
+variable "availability_zone_secondary" {
+  type = string
+}
 
 #Networking (Including VPC, Routing, and Subnets)
-variable "availability_zone" {
+#VPC
+variable "cidr_block" {
   type = string
 }
 variable "instance_tenancy" {
@@ -17,6 +24,16 @@ variable "enable_dns_support" {
 }
 variable "enable_dns_hostnames" {
   type = bool
+}
+#Subnets
+variable "public_block" {
+  type = string
+}
+variable "private_block" {
+  type = string
+}
+variable "private_block_secondary" {
+  type = string
 }
 
 #Containers
@@ -80,6 +97,9 @@ variable "aws_public_subnet_id" {
 variable "aws_private_subnet_id" {
   type = string
 }
+variable "db_subnet_group_name" {
+  type = string
+}
 
 #Security
 variable "aws_frontend_sg_id" {
@@ -87,4 +107,7 @@ variable "aws_frontend_sg_id" {
 }
 variable "aws_backend_sg_id" {
   type = string
+}
+variable "db_security_group_id" {
+  type = list(string)
 }

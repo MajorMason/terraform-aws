@@ -48,7 +48,11 @@ variable "deletion_protection" {
 #Security Groups
 #This is a variable that Terraform provides a value for behind the scenes during runtime
 #thanks to our outputs.tf file over in our "security" module
-variable "db_security_group_ids" {
+variable "db_security_group_id" {
   description = "List of security group IDs to attach to the DB instance"
   type        = list(string)
+}
+#Network
+variable "db_subnet_group_name" {
+  type = string
 }
