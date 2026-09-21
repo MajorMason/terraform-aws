@@ -61,7 +61,16 @@ locals {
       network_mode = "awsvpc"
       cpu = var.cpu
       memory = var.memory
-
+      #We only need persistent storage for the API, the frontends do not need it
+      #(alternatively, the FEs can use ephemeral_storage which is AWS native provided storage for temp things)
+      volume = {
+        name = "efs_storage"
+     
+        efs_volume_configuration = {
+          file_system_id     = var.aws_efs_file_storage_id
+          transit_encryption = "ENABLED"
+        }
+      }
       container_definitions = {
         name = "countysuite_api"
         image = "majormason/mysite:countysuite_api"
@@ -70,6 +79,13 @@ locals {
           {
             containerPort = 8000
             hostPort = 80
+          }
+        ]
+        mountPoints = [
+          {
+            sourceVolume  = "efs_storage"
+            containerPath = "/app/data"
+            readOnly      = false
           }
         ]
       }

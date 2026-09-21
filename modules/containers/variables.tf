@@ -22,11 +22,14 @@ variable "aws_public_subnet_id" {
 variable "aws_private_subnet_id" {
   type = string
 }
-
 #Security
 variable "aws_frontend_sg_id" {
   type = string
 }
 variable "aws_backend_sg_id" {
+  type = string
+}
+#Storage
+variable "aws_efs_file_storage_id" {
   type = string
 }

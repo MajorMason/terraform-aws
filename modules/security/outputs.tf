@@ -11,3 +11,7 @@ output "backend_sg_id" {
 output "db_security_group_id" {
   value = aws_security_group.db_security_group.id
 }
+
+output "efs_security_group_id" {
+  value = aws_security_group.db_security_group.id
+}

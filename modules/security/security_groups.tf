@@ -62,3 +62,16 @@ resource "aws_security_group" "db_security_group" {
     security_groups = [aws_security_group.backend_security_group.id]
   }
 }
+
+#EFS Security Group to allow only the backend ECS Container
+resource "aws_security_group" "efs_security_group" {
+  vpc_id  = var.aws_vpc_id
+  name    = "efs_sg"
+
+  ingress {
+    from_port       = 2049
+    to_port         = 2049
+    protocol        = "tcp"
+    security_groups = [aws_security_group.backend_security_group.id]
+  }
+}

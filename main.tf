@@ -15,14 +15,15 @@ module "networking" {
 }
 
 module "containers" {
-  source                = "./modules/containers"
-  memory                = var.memory
-  cpu                   = var.cpu
-  aws_vpc_id            = var.aws_vpc_id
-  aws_public_subnet_id  = var.aws_public_subnet_id
-  aws_frontend_sg_id    = var.aws_frontend_sg_id
-  aws_private_subnet_id = var.aws_private_subnet_id
-  aws_backend_sg_id     = var.aws_backend_sg_id
+  source                  = "./modules/containers"
+  memory                  = var.memory
+  cpu                     = var.cpu
+  aws_vpc_id              = var.aws_vpc_id
+  aws_public_subnet_id    = var.aws_public_subnet_id
+  aws_frontend_sg_id      = var.aws_frontend_sg_id
+  aws_private_subnet_id   = var.aws_private_subnet_id
+  aws_backend_sg_id       = var.aws_backend_sg_id
+  aws_efs_file_storage_id = var.aws_efs_file_storage_id
 }
 
 module "database_instance" {
@@ -51,5 +52,7 @@ module "security" {
 }
 
 module "storage" {
-  source = "./modules/storage"
+  source                = "./modules/storage"
+  aws_private_subnet_id = var.aws_private_subnet_id
+  efs_security_group_id = var.efs_security_group_id
 }
