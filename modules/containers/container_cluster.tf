@@ -5,10 +5,17 @@ resource "aws_ecs_cluster" "cluster" {
     
     name = each.value.name
 
+    setting {
+      name = "containerInsights"
+      value = "enabled"
+    }
+
     tags = {
       environment = var.environment
     }
 }
-#We are using locals + a for_each loop to create both FE and BE clusters
-#Note that "each.value" is the defactor standard for referencing any attributes defined in our locals.tf file
-#and we're simply pointing to our value of "name" in this case
+
+resource "aws_cloudwatch_log_group" "ecs_logs" {
+  name              = "/ecs/my-app"
+  retention_in_days = 30
+}
