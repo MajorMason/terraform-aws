@@ -1,0 +1,36 @@
+components:
+  terraform:
+    _defaults:
+      backend_type: s3
+      backend:
+        s3:
+          encrypt: true
+          bucket: "terraform"
+          key: "tfstate/{{ .stage }}/{{ .component }}.tfstate"
+          region: "us-east-1"
+# Common component variables
+    core:
+      vars:
+        # General & Availability
+        availability_zone: "us-east-1a"
+        availability_zone_secondary: "us-east-2a"
+
+        # Network / VPC
+        cidr_block: "10.0.0.0/20"
+        instance_tenancy: "default"
+        public_block: "10.0.1.0/24"
+        private_block: "10.0.2.0/24"
+        private_block_secondary: "10.0.3.0/24"
+
+        # ECS Task Defaults
+        cpu: 512
+        memory: 1024
+
+        # Database Engine Defaults
+        engine_version: "16.0"
+        username: "administrator"
+        backup_window: "03:00-04:00"
+        maintenance_window: "Sun:04:30-Sun:05:30"
+        copy_tags_to_snapshot: true
+        final_snapshot_identifier: "primary_db_final"
+        deletion_protection: true

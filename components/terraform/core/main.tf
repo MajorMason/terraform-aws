@@ -1,6 +1,6 @@
 #Our modules are in their own individual codeblocks below
 module "networking" {
-  source                      = "./modules/networking"
+  source                      = "../../modules/networking"
   availability_zone           = var.availability_zone
   availability_zone_secondary = var.availability_zone_secondary
   #VPC
@@ -15,7 +15,7 @@ module "networking" {
 }
 
 module "containers" {
-  source                  = "./modules/containers"
+  source                  = "../../modules/containers"
   memory                  = var.memory
   cpu                     = var.cpu
   aws_vpc_id              = var.aws_vpc_id
@@ -27,7 +27,7 @@ module "containers" {
 }
 
 module "database_instance" {
-  source               = "./modules/database"
+  source               = "../../modules/database"
   allocated_storage    = var.allocated_storage
   engine_version       = var.engine_version
   instance_class       = var.instance_class
@@ -47,12 +47,12 @@ module "database_instance" {
 }
 
 module "security" {
-  source     = "./modules/security"
+  source     = "../../modules/security"
   aws_vpc_id = var.aws_vpc_id
 }
 
 module "storage" {
-  source                = "./modules/storage"
+  source                = "../../modules/storage"
   aws_private_subnet_id = var.aws_private_subnet_id
   efs_security_group_id = var.efs_security_group_id
 }

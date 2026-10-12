@@ -1,0 +1,19 @@
+Key Features of using Atmos for our Terraform project:
+-Gets rid of repetitive variables across dev and prod (like region for example) and replaces them with highly inheritable vars from a global level "_default.yaml" that flows down to "dev.yaml" and "prod.yaml".
+-New azure-pipelines.yaml file which will be considerably shorter than our old one (the code is very generic and simple, and can be reused in other pipelines).
+-Atmos encourages a newer multi-state architecture rather than a traditional monolithic one (with just dev.tfstate and prod.tfstate) because:
+1. It ensures smaller blast radii
+2. The failure risk is smaller because each state is naturally smaller, preventing your entire dev env from getting blocked if a deployment failure happens
+3. The drift issue is minimized to just a smaller state rather than impacting one monolithic state file that would otherwise impact other resources.
+4. Another hidden benefit is within CI/CD Speed concurrency, meaning two devops engineers can deploy changes to modules (i.e.) "network" and "virtual_machines" resources at the same time, assuming you have dual pipelines setup.
+----------------------------------------
+New Project Structure:
+-The new project root will be highly minimal, with just a components folder (contains all our Terraform), stacks folder (where our variable yamls live), and the main atmos.yaml file (gives atmos info about your file structure).
+
+-Atmos CLI required to be installed, with the VSCode extension is optional but recommended for devops aid (hover previews, quick nav between files, etc.)
+
+-Yes, VSCode will require .terraform to remain in the root of the project (in our case).
+
+-Yes, the two backend-dev and -prod.conf files will be going away (along with a revamped azure-pipelines.yaml file).
+
+NOTE: Atmos requires a two-level folder structure for our modules (fulfilled by default) and our base terraform files (like version.tf, main.tf, etc.) hence why we used "terraform/core" for our project.

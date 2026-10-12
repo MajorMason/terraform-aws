@@ -1,0 +1,21 @@
+import:
+  - _default
+
+vars:
+  stage: prod
+  environment: prod
+
+components:
+  terraform:
+    core:
+      vars:
+        # VPC Overrides
+        enable_dns_support: true
+        enable_dns_hostnames: true
+
+        # Database Instance Overrides
+        allocated_storage: 20
+        instance_class: "db.m8g"
+        skip_final_snapshot: false
+        blue_green: true
+        backup_retention_period: 20

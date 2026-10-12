@@ -1,0 +1,28 @@
+# ==============================================================================
+# Atmos Root Configuration Tailored to Your Repository Layout
+# ==============================================================================
+
+# 1. Stack configuration pointing to your 'environments/' directory
+stacks:
+  base_path: "environments"
+  included_paths:
+    - "*.yaml"
+    - "*.yml"
+  excluded_paths:
+    - "_*" # Excludes _defaults.yaml from being processed as a runnable stack
+  # Stack naming template matching 'dev', 'prod'
+  name_template: "{{ .stage }}"
+
+# 2. Component configuration pointing to your 'components/' directory
+components:
+  terraform:
+    base_path: "components"
+    apply_auto_approve: false
+    deploy_run_init: true
+    init_run_reconfigure: true
+
+# 3. CLI Logs and Output Preferences
+logs:
+  verbose: false
+  colors: true
+  level: Info

@@ -1,0 +1,21 @@
+import:
+  - _default
+
+vars:
+  stage: dev
+  environment: dev
+
+components:
+  terraform:
+    core:
+      vars:
+        # VPC Overrides
+        enable_dns_support: false
+        enable_dns_hostnames: false
+
+        # Database Instance Overrides
+        allocated_storage: 10
+        instance_class: "db.t3.micro"
+        skip_final_snapshot: true
+        blue_green: false
+        backup_retention_period: 14
