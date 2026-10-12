@@ -14,20 +14,27 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  # Map ADO branches to Atmos stages
-  ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
-    ATMOS_STAGE: 'prod'
-  ${{ else }}:
-    ATMOS_STAGE: 'dev'
-  
-  ATMOS_VERSION: '1.88.0' # Adjust to your preferred Atmos release
+  - name: ATMOS_VERSION
+    value: '1.88.0'
+  - name: TERRAFORM_VERSION
+    value: '1.9.0'
+  # Map ADO branches to Atmos stages cleanly
+  - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
+      - name: ATMOS_STAGE
+        value: 'prod'
+  - ${{ if ne(variables['Build.SourceBranchName'], 'main') }}:
+      - name: ATMOS_STAGE
+        value: 'dev'
 
 steps:
-  # 1. Install Terraform CLI
-  - task: HashiCorpTerraformInstaller@1
-    displayName: 'Install Terraform'
-    inputs:
-      terraformVersion: 'latest'
+  # 1. Install Terraform CLI via script (bypasses extension task dependency issues)
+  - script: |
+      echo "Installing Terraform v$(TERRAFORM_VERSION)..."
+      wget -q https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
+      unzip -q terraform_$(TERRAFORM_VERSION)_linux_amd64.zip
+      sudo mv terraform /usr/local/bin/
+      terraform version
+    displayName: 'Install Terraform CLI'
 
   # 2. Install Atmos CLI
   - script: |
@@ -37,10 +44,7 @@ steps:
       atmos version
     displayName: 'Install Atmos CLI'
 
-  # 3. AWS Credentials Setup (Option A: AWS OIDC / Service Connection or Env Vars)
-  # Ensure AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, and TF_VAR_password are set in ADO Pipeline Variables
-
-  # 4. Atmos Plan (Runs on both PRs and Branch Merges)
+  # 3. Atmos Plan (Runs on both PRs and Branch Merges)
   - script: |
       echo "Running Atmos Plan for component 'core' in stage: $(ATMOS_STAGE)"
       atmos terraform plan core -s $(ATMOS_STAGE)
@@ -49,9 +53,9 @@ steps:
       AWS_ACCESS_KEY_ID: $(AWS_ACCESS_KEY_ID)
       AWS_SECRET_ACCESS_KEY: $(AWS_SECRET_ACCESS_KEY)
       AWS_DEFAULT_REGION: 'us-east-1'
-      TF_VAR_password: $(DB_PASSWORD) # Pass DB password securely from Pipeline Secret Variable
+      TF_VAR_password: $(DB_PASSWORD)
 
-  # 5. Atmos Apply (Runs ONLY on merge to main or dev branch, skip on PRs)
+  # 4. Atmos Apply (Runs ONLY on merge to main or dev branch, skip on PRs)
   - script: |
       echo "Running Atmos Apply for component 'core' in stage: $(ATMOS_STAGE)"
       atmos terraform apply core -s $(ATMOS_STAGE) -auto-approve
