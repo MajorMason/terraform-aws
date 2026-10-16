@@ -33,3 +33,7 @@ variable "private_block" {
 variable "private_block_secondary" {
   type = string
 }
+#Security
+variable "vpc_endpoint_security_group_id" {
+  type = string
+}

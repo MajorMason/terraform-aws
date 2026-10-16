@@ -75,3 +75,17 @@ resource "aws_security_group" "efs_security_group" {
     security_groups = [aws_security_group.backend_security_group.id]
   }
 }
+
+#Security Group for the VPC Endpoints (allows inbound HTTPS from our VPC CIDR)
+resource "aws_security_group" "vpc_endpoint_security_group" {
+  vpc_id      = var.aws_vpc_id
+  name        = "vpc_endpoints_sg"
+
+  ingress {
+    description = "Access to AWS PrivateLink endpoints from VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/20"]
+  }
+}

@@ -1,8 +1,9 @@
 #Our modules are in their own individual codeblocks below
 module "networking" {
-  source                      = "../../modules/networking"
-  availability_zone           = var.availability_zone
-  availability_zone_secondary = var.availability_zone_secondary
+  source                         = "../../modules/networking"
+  availability_zone              = var.availability_zone
+  availability_zone_secondary    = var.availability_zone_secondary
+  vpc_endpoint_security_group_id = var.vpc_endpoint_sg_id
   #VPC
   cidr_block           = var.cidr_block
   instance_tenancy     = var.instance_tenancy

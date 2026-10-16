@@ -114,6 +114,9 @@ variable "db_security_group_id" {
 variable "efs_security_group_id" {
   type = string
 }
+variable "vpc_endpoint_sg_id" {
+  type = string
+}
 
 #Storage
 variable "aws_efs_file_storage_id" {
