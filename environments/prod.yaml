@@ -1,5 +1,5 @@
 import:
-  - _default
+  - _defaults
 
 vars:
   stage: prod

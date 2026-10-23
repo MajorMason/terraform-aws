@@ -31,6 +31,9 @@ variable "aws_frontend_sg_id" {
 variable "aws_backend_sg_id" {
   type = string
 }
+variable "ecs_task_execution_role_arn" {
+  type = string
+}
 #Storage
 variable "aws_efs_file_storage_id" {
   type = string

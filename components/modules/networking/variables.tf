@@ -1,6 +1,5 @@
 variable "environment" {
     type = string
-    default = "dev"
 }
 variable "availability_zone" {
     type = string

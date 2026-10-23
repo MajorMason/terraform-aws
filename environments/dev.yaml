@@ -1,5 +1,5 @@
 import:
-  - _default
+  - _defaults
 
 vars:
   stage: dev
@@ -9,10 +9,6 @@ components:
   terraform:
     core:
       vars:
-        # VPC Overrides
-        enable_dns_support: false
-        enable_dns_hostnames: false
-
         # Database Instance Overrides
         allocated_storage: 20
         instance_class: "db.t3.micro"

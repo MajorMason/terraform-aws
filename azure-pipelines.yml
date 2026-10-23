@@ -17,7 +17,7 @@ variables:
   - name: ATMOS_VERSION
     value: '1.88.0'
   - name: TERRAFORM_VERSION
-    value: '1.9.0'
+    value: '1.10.0'
   # Map ADO branches to Atmos stages cleanly
   - ${{ if eq(variables['Build.SourceBranchName'], 'main') }}:
       - name: ATMOS_STAGE

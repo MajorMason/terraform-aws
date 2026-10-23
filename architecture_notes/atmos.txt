@@ -15,3 +15,5 @@ New Project Structure:
 -Yes, VSCode will require .terraform to remain in the root of the project (in our case).
 
 -Yes, the two backend-dev and -prod.conf files will be going away (along with a revamped azure-pipelines.yaml file).
+
+-Atmos will generate the backend.tf.json on the fly during runtime, so the traditional "backend.tf" was deleted.

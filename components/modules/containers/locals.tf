@@ -21,7 +21,7 @@ locals {
       network_mode = "awsvpc"
       cpu = var.cpu
       memory = var.memory
-
+      volume = null
       container_definitions = {
         name = "prothonotary_fe"
         image = "majormason/mysite:prothonotary_fe"
@@ -41,7 +41,7 @@ locals {
       network_mode = "awsvpc"
       cpu = var.cpu
       memory = var.memory
-
+      volume = null
       container_definitions = {
         name = "sheriff_fe"
         image = "majormason/mysite:sheriff_fe"

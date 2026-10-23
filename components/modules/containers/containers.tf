@@ -8,6 +8,7 @@ resource "aws_ecs_task_definition" "task" {
     network_mode = each.value.network_mode
     cpu = each.value.cpu
     memory = each.value.memory
+    execution_role_arn = var.ecs_task_execution_role_arn
 
     container_definitions = jsonencode([each.value.container_definitions])
 
