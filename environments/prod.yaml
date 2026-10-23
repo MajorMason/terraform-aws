@@ -15,7 +15,7 @@ components:
 
         # Database Instance Overrides
         allocated_storage: 20
-        instance_class: "db.m8g"
+        instance_class: "db.m8g.large"
         skip_final_snapshot: false
         blue_green: true
         backup_retention_period: 20

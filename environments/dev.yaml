@@ -14,8 +14,9 @@ components:
         enable_dns_hostnames: false
 
         # Database Instance Overrides
-        allocated_storage: 10
+        allocated_storage: 20
         instance_class: "db.t3.micro"
         skip_final_snapshot: true
+        deletion_protection: false
         blue_green: false
         backup_retention_period: 14
