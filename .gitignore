@@ -1,8 +1,13 @@
-# Ignore Terraform directories and plugins
+#Ignore Terraform directories and plugins
 **/.terraform/*
 *.tfstate
 *.tfstate.*
 terraform.tfvars
+#Atmos files generated during runtime
+*.terraform.tfvars.json
+backend.tf.json
+*.planfile
+#Additional files to ignore
 crash.log
 *.log
 *.backup

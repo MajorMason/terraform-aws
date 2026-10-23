@@ -1,32 +1,37 @@
+terraform:
+  backend_type: s3
+  backend:
+    s3:
+      encrypt: true
+      bucket: "terraform-aws-paas"
+      key: "terraform.tfstate"
+      region: "us-east-1"
+      use_lockfile: true
+
+#Common component variables
+vars:
+  region: "us-east-1"
+
 components:
   terraform:
-    _defaults:
-      backend_type: s3
-      backend:
-        s3:
-          encrypt: true
-          bucket: "terraform"
-          key: "tfstate/{{ .stage }}/{{ .component }}.tfstate"
-          region: "us-east-1"
-# Common component variables
     core:
       vars:
-        # General & Availability
+        #General & Availability
         availability_zone: "us-east-1a"
         availability_zone_secondary: "us-east-2a"
-
-        # Network / VPC
+        #Network / VPC
         cidr_block: "10.0.0.0/20"
         instance_tenancy: "default"
         public_block: "10.0.1.0/24"
         private_block: "10.0.2.0/24"
         private_block_secondary: "10.0.3.0/24"
-
-        # ECS Task Defaults
+        #Interface endpoints require private DNS, hence both of these being included below
+        enable_dns_support: true
+        enable_dns_hostname: true
+        #ECS Task Defaults
         cpu: 512
         memory: 1024
-
-        # Database Engine Defaults
+        #Database Engine Defaults
         engine_version: "16.0"
         username: "administrator"
         backup_window: "03:00-04:00"

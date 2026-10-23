@@ -25,7 +25,6 @@ The backend service connects to a PostgreSQL RDS instance, both of which are dep
 
 - **Networking**
   - VPC with public and private subnets across multiple AZs
-  - NAT Gateway for outbound internet access from private subnets
   - Security groups enforcing least‑privilege communication
   - Optional Application Load Balancer for frontend services
 
@@ -46,15 +45,8 @@ v
 ## Features
 
 - Infrastructure-as-code using Terraform
+- Leverages Atmos for variable simplification + deployment
 - Multi-service ECS deployment (frontend ×2, backend ×1)
 - Secure private networking for backend and database layers
 - Parameterized modules for reusability
 - Optional autoscaling and load balancing
-- Environment-specific configuration via `.tfvars`
-
-## Deployment
-
-```bash
-terraform init
-terraform plan -var-file="envs/dev/dev.tfvars"
-terraform apply -var-file="envs/dev/dev.tfvars"

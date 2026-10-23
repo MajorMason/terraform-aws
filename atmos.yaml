@@ -1,28 +1,28 @@
-# ==============================================================================
-# Atmos Root Configuration Tailored to Your Repository Layout
-# ==============================================================================
+#Stack configuration pointing to 'environments/' directory
+#Paths are relative to this file (repo root)
+base_path: "."
 
-# 1. Stack configuration pointing to your 'environments/' directory
+#Stacks live in environments/
 stacks:
   base_path: "environments"
   included_paths:
-    - "*.yaml"
-    - "*.yml"
+    - "**/*"
+  #_defaults.yaml is just a shared stack, imported into dev/prod, and is not a runnable stack
   excluded_paths:
-    - "_*" # Excludes _defaults.yaml from being processed as a runnable stack
-  # Stack naming template matching 'dev', 'prod'
-  name_template: "{{ .stage }}"
+    - "**/_defaults.yaml"
+  name_pattern: "{stage}"
 
-# 2. Component configuration pointing to your 'components/' directory
+#Component configuration pointing to your 'components/' directory
 components:
   terraform:
-    base_path: "components"
+    base_path: "components/terraform"
     apply_auto_approve: false
     deploy_run_init: true
     init_run_reconfigure: true
+    #Atmos writes backend.tf.json into the component directory from the stack's 'backend' section
+    auto_generate_backend_file: true
 
-# 3. CLI Logs and Output Preferences
+#CLI Logs and Output Preferences
 logs:
-  verbose: false
-  colors: true
+  file: "/dev/stderr"
   level: Info
