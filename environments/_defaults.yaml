@@ -27,7 +27,7 @@ components:
         private_block_secondary: "10.0.3.0/24"
         #Interface endpoints require private DNS, hence both of these being included below
         enable_dns_support: true
-        enable_dns_hostname: true
+        enable_dns_hostnames: true
         #ECS Task Defaults
         cpu: 512
         memory: 1024

@@ -28,7 +28,7 @@ module "containers" {
   aws_private_subnet_id       = module.networking.aws_private_subnet_id
   aws_backend_sg_id           = module.security.backend_sg_id
   aws_efs_file_storage_id     = module.storage.aws_efs_file_storage_id
-  ecs_task_execution_role_arn = module.ecs_task_execution_role_arn
+  ecs_task_execution_role_arn = module.security.ecs_task_execution_role_arn
 }
 
 module "database_instance" {

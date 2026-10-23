@@ -13,7 +13,7 @@ output "db_security_group_id" {
 }
 
 output "efs_security_group_id" {
-  value = aws_security_group.db_security_group.id
+  value = aws_security_group.efs_security_group.id
 }
 
 output "vpc_endpoint_sg_id" {
