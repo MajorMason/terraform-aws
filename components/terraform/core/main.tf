@@ -17,6 +17,8 @@ module "networking" {
 
 module "containers" {
   source                  = "../../modules/containers"
+  environment             = var.environment
+  region                  = var.region
   memory                  = var.memory
   cpu                     = var.cpu
   aws_vpc_id              = module.networking.aws_vpc_id
@@ -29,6 +31,7 @@ module "containers" {
 
 module "database_instance" {
   source               = "../../modules/database"
+  environment = var.environment
   allocated_storage    = var.allocated_storage
   engine_version       = var.engine_version
   instance_class       = var.instance_class
@@ -48,12 +51,15 @@ module "database_instance" {
 }
 
 module "security" {
-  source     = "../../modules/security"
-  aws_vpc_id = module.networking.aws_vpc_id
+  source      = "../../modules/security"
+  environment = var.environment
+  aws_vpc_id  = module.networking.aws_vpc_id
+  vpc_cidr    = var.cidr_block
 }
 
 module "storage" {
   source                = "../../modules/storage"
+  environment           = var.environment
   aws_private_subnet_id = module.networking.aws_private_subnet_id
   efs_security_group_id = module.security.efs_security_group_id
 }

@@ -19,7 +19,9 @@ output "storage_account_name" {
 }
 
 Then serverless_functions module receives it in its variables.tf file:
-variable "storage_account_name" {}
+variable "storage_account_name" {
+  type = string
+}
 
 Then inside serverless_functions module, you reference it like:
 storage_account_name = var.storage_account_name
@@ -27,6 +29,7 @@ storage_account_name = var.storage_account_name
 This "variablization" is done behind the scenes like we've seen in our other Terraform projects.
 
 So remember:
+-In our root main.tf module codeblocks, any and all arguments pointing to output-based variables must use the pattern: module.<module_name>.<output_variable_name>
 -Outputs + Variables will always be used as that's the communication medium between modules.
 -Resource VS Data Objects will vary depending on whether the info requested comes from our tfstate.
 -When using Data Objects, you'll reference it within the same module you're requesting it from.

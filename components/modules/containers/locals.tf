@@ -49,7 +49,7 @@ locals {
         portMappings = [
           {
             containerPort = 8080
-            hostPort = 80
+            hostPort = 8080
           }
         ]
       }
@@ -78,7 +78,7 @@ locals {
         portMappings = [
           {
             containerPort = 8000
-            hostPort = 80
+            hostPort = 8000
           }
         ]
         mountPoints = [
@@ -88,14 +88,14 @@ locals {
             readOnly      = false
           }
         ]
-      }
-      logConfiguration = {
+        logConfiguration = {
         logDriver = "awslogs"
         options = {
           "awslogs-group"         = aws_cloudwatch_log_group.ecs_logs.name
           "awslogs-region"        = "us-east-1"
           "awslogs-stream-prefix" = "ecs"
         }
+      }
       }
     }
   }

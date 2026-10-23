@@ -4,6 +4,9 @@ variable "environment" {
   type    = string
   default = "dev"
 }
+variable "region" {
+  type = string
+}
 variable "availability_zone" {
   type = string
 }

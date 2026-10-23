@@ -1,12 +1,12 @@
 #ECS Logs is only for log collection, not CPU nor RAM usage which require CloudWatch separately
 resource "aws_cloudwatch_log_group" "ecs_logs" {
-  name              = "/ecs/my-app"
+  name              = "/ecs/${var.environment}-countysuite-api"
   retention_in_days = 30
 }
 
 #SNS is for notification delivery of CloudWatch alarms
 resource "aws_sns_topic" "ecs_alerts" {
-  name = "ecs-resource-alerts"
+  name = "${var.environment}-ecs-resource-alerts"
 }
 
 resource "aws_sns_topic_subscription" "email_subscription" {
@@ -16,7 +16,7 @@ resource "aws_sns_topic_subscription" "email_subscription" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "ecs_cpu_high" {
-  alarm_name          = "ecs-high-cpu-utilization"
+  alarm_name          = "${var.environment}-ecs-high-cpu-utilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
   metric_name         = "CPUUtilization"
@@ -28,13 +28,13 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_high" {
   alarm_actions       = [aws_sns_topic.ecs_alerts.arn]
 
   dimensions = {
-    ClusterName = "${var.environment}-be-ecs-cluster"
+    ClusterName = aws_ecs_cluster.cluster["be_ecs_cluster"].name
     ServiceName = aws_ecs_service.countysuite_api_ecs.name
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "ecs_memory_high" {
-  alarm_name          = "ecs-high-memory-utilization"
+  alarm_name          = "${var.environment}-ecs-high-memory-utilization"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
   metric_name         = "MemoryUtilization"
@@ -46,7 +46,7 @@ resource "aws_cloudwatch_metric_alarm" "ecs_memory_high" {
   alarm_actions       = [aws_sns_topic.ecs_alerts.arn]
 
   dimensions = {
-    ClusterName = "${var.environment}-be-ecs-cluster"
+    ClusterName = aws_ecs_cluster.cluster["be_ecs_cluster"].name
     ServiceName = aws_ecs_service.countysuite_api_ecs.name
   }
 }

@@ -9,7 +9,18 @@ resource "aws_ecs_task_definition" "task" {
     cpu = each.value.cpu
     memory = each.value.memory
 
-    container_definitions = jsonencode(each.value.container_definitions)
+    container_definitions = jsonencode([each.value.container_definitions])
+
+    dynamic "volume" {
+      for_each = each.value.volume == null ? [] : [each.value.volume]
+      content {
+        name = volume.value.name
+        efs_volume_configuration {
+          file_system_id = volume.value.efs_volume_configuration.file_system_id
+          transit_encryption = volume.value.efs_volume_configuration.transit_encryption
+        }
+      }
+    }
 
     tags = {
       environment = var.environment
